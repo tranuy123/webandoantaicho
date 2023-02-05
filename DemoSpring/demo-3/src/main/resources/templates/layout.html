@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+  <title layout:title-pattern="$CONTENT_TITLE"></title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
+
+  <!-- Favicons -->
+  <link href="/assets/img/favicon.png" rel="icon" />
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet"
+  />
+
+  <!-- Vendor CSS Files -->
+  <link
+          href="/assets/vendor/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet"
+  />
+  <link
+          href="/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+          rel="stylesheet"
+  />
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+  <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet" />
+  <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
+  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+  <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet" />
+  <link href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+  
+  
+
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet" />
+
+</head>
+<body>
+
+<!--heder-->
+<div th:replace="Fragments/header.html :: header"></div>
+
+
+<!--sidebar-->
+<div th:replace="Fragments/Sidebar.html :: sidebar"></div>
+
+<!--main-->
+<div layout:fragment="content"></div>
+
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+  <i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/chart.js/chart.min.js"></script>
+<script src="/assets/vendor/echarts/echarts.min.js"></script>
+<script src="/assets/vendor/quill/quill.min.js"></script>
+<script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="/assets/vendor/php-email-form/validate.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/assets/js/main.js">
+</script>
+<script>
+  function chooseFile1(fileinput) {
+    $('#divImage').css('display','none');
+    $('#divImage1').css('display','block');
+    if (fileinput.files && fileinput.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#image1").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(fileinput.files[0]);
+    }
+  }
+</script>
+<script>
+  function chooseFile(fileinput) {
+    if (fileinput.files && fileinput.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $("#image").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(fileinput.files[0]);
+    }
+  }
+</script>
+
+<script>
+$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+
+  $('#newPassword, #renewPassword').on('keyup', function () {
+    if ($('#newPassword').val() == $('#renewPassword').val()) {
+      document.getElementById("updateBtn").disabled = false;
+      $('#renewPassword').css('border', '1px solid #ced4da')
+    } else {
+      document.getElementById("updateBtn").disabled = true;
+      $('#renewPassword').css('border', '2px solid red')
+    }
+  });
+
+  function update_passWord(){
+    $.ajax({
+      type : "POST",
+      url: "/update-password",
+      data: "passWord="+$('#currentPassword').val()+"&userName="+$('#SSuserName').text()+"&newPassWord="+$('#newPassword').val(),
+      success: function(data) {
+        $('.trangThai').replaceWith(data);
+        $('#newPassword').val("");
+        $('#renewPassword').val("");
+        $('#currentPassword').val("");
+      },
+      error: function(data){
+        alert("lỗi!");
+      }
+    });
+  }
+
+
+ 
+
+  function load_listHH(){
+    $.ajax({
+      type: "POST",
+      url: "/xuat-nhap/load_HH",
+      data: "loai=" + $('#haha').val(),
+      success: function (data) {
+        $('#loadHH').replaceWith(data);
+      },
+      error: function (data) {
+        alert('Lỗi!');
+      }
+    });
+  }
+  function themfoodvaoSession(id){
+
+    $.ajax({
+      type: "POST",
+      url: "/khach-hang/them-food-session",
+      data: "id=" + id,
+      success: function (data) {
+        $('#listfood').replaceWith(data);
+        document.getElementById()
+      },
+      error: function (data) {
+        alert('Lỗi!');
+      }
+    });
+  }
+  function thanhTien(id) {
+	    document.getElementById('btnXacNhan').style.display = 'block';
+
+	    var a = document.getElementById(id).value;
+	    var c = document.getElementById('khuyenmai').value;
+	    var b = document.getElementById('gia' + id).textContent;
+	    document.getElementById('tong' + id).value = a * b;
+	    var tong = 0;
+	    var sl = document.getElementById('SoLoai').value;
+	    for (var i = 0; i < sl; i++) {
+	      tong = tong + parseFloat(document.getElementById('tong' + i).value);
+	    }
+	    document.getElementById('tongPhieu').value = tong-(tong*c)/100;
+	  }
+  function show_mon_an_on_modal(id){
+	  document.getElementById('editModal').style.display = 'block';
+	  $.ajax({
+	    type : "POST",
+	    url: "/quan-ly/show-mon-an-on-modal",
+	    data: "idf="+id,
+	    success: function(data) {
+	      $('#modalSua').replaceWith(data);
+	    },
+	    error: function(data){
+	      alert("lỗi!");
+	    }
+	  });
+	}
+  function xoa_mon_an(id) {
+	    if (confirm('Bạn có muốn xoá món ăn này?')) {
+	      $.ajax({
+	        type: "POST",
+	        url: "/quan-ly/xoa-mon-an",
+	        data: "IDF=" + id,
+	        success: function () {
+	          alert('Thành công!');
+	          window.location = '/quan-ly/menu';
+	        },
+	        error: function (data) {
+	          alert('Lỗi!');
+	        }
+	      });
+	    }
+	  }
+  function reset_ban(id) {
+	    if (confirm('Bạn có muốn reset lại bàn này?')) {
+	      $.ajax({
+	        type: "POST",
+	        url: "/Quan-Ly-Ban/update-trangthai-ban",
+	        data: "IDF=" + id,
+	        success: function () {
+	          alert('Thành công!');
+	          window.location = '/Quan-ly-Ban/ban';
+	        },
+	        error: function (data) {
+	          alert('Lỗi!');
+	        }
+	      });
+	    }
+	  }
+  function show_man_hinh_on_modal(id){
+	  $.ajax({
+	    type : "POST",
+	    url: "/quan-ly/show-mon-an-on-modal",
+	    data: "idf="+id,
+	    success: function(data) {
+	      $('#modalSua').replaceWith(data);
+	    },
+	    error: function(data){
+	      alert("lỗi!");
+	    }
+	  });
+	}
+  function show_ban_on_modal(id){
+	  $.ajax({
+	    type : "POST",
+	    url: "/quan-ly/show-ban-on-modal",
+	    data: "idf="+id,
+	    success: function(data) {
+	      $('#modalSua').replaceWith(data);
+	    },
+	    error: function(data){
+	      alert("lỗi!");
+	    }
+	  });
+	}
+  function xoa_thu_kho(id) {
+	    if (confirm('Bạn có muốn xoá nhân viên này?')) {
+	      $.ajax({
+	        type: "POST",
+	        url: "/quan-ly/xoa-thu-kho",
+	        data: "maTK=" + id,
+	        success: function () {
+	          alert('Thành công!');
+	          window.location = '/quan-ly/nhan-vien';
+	        },
+	        error: function (data) {
+	          alert('Lỗi!');
+	        }
+	      });
+	    }
+	  }
+document.getElementById('ngayTao').valueAsDate = new Date();
+</script>
+
+</body>
+</html>

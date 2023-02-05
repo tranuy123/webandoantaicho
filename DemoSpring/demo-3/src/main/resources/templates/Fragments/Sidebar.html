@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body th:fragment="sidebar">
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item" >
+          <a class="nav-link" th:href="@{/trang-chu}">
+            <i class="bi bi-grid"></i>
+            <span>Trang chủ</span>
+          </a>
+        </li>
+          <li class="nav-item" sec:authorize="hasAnyRole('ROLE_KHACHHANG')">
+            <a class="nav-link collapsed" th:href="@{/khach-hang/menu}">
+                <i class="bi bi-file-earmark"></i>
+                <span>Menu</span>
+            </a>
+        </li>
+         <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_NHANVIEN')">
+          <a class="nav-link" th:href="@{/Quan-Ly-Ban/ban}">
+            <i class="bi bi-grid"></i>
+            <span>Bàn</span>
+          </a>
+        </li>
+        <!-- End Dashboard Nav -->
+
+        
+        <!-- End Components Nav -->
+
+        <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+          <a
+            class="nav-link collapsed"
+            data-bs-target="#forms-nav"
+            data-bs-toggle="collapse"
+            href="#"
+          >
+            <i class="bi bi-journal-text"></i><span>Quản lý</span
+            ><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul
+            id="forms-nav"
+            class="nav-content collapse"
+            data-bs-parent="#sidebar-nav"
+          >
+            <li>
+              <a th:href="@{/quan-ly/ban}">
+                <i class="bi bi-circle"></i><span>Quản lý bàn</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/quan-ly/nhan-vien}">
+                <i class="bi bi-circle"></i><span>Quản lý nhân viên</span>
+              </a>
+            </li>
+             <li>
+              <a th:href="@{/quan-ly/menu}">
+                <i class="bi bi-circle"></i><span>Quản lý Menu</span>
+              </a>
+            </li>
+             <li>
+              <a th:href="@{/quan-ly/hoa-don}">
+                <i class="bi bi-circle"></i><span>Quản lý hóa đơn</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/quan-ly/thong-ke}">
+                <i class="bi bi-circle"></i><span>Thống kê</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- End Forms Nav -->
+
+        <li class="nav-heading" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_NHANVIEN')">Cá nhân</li>
+
+        <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_NHANVIEN')">
+          <a class="nav-link collapsed" th:href="@{/ho-so}">
+            <i class="bi bi-person"></i>
+            <span>Hồ sơ</span>
+          </a>
+        </li>
+        <!-- End Profile Page Nav -->
+
+       
+        <!-- End Blank Page Nav -->
+      </ul>
+    </aside>
+<!-- End Sidebar-->
+</body>
+</html>

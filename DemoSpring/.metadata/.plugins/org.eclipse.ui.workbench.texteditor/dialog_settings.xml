@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<item key="selection" value=""/>
+		<list key="findhistory">
+			<item value="tongtienTungLoai"/>
+			<item value="SoLoai"/>
+			<item value="thanhTien1"/>
+			<item value="stat.index"/>
+			<item value="data-id"/>
+			<item value="thanhTien"/>
+			<item value="name"/>
+			<item value="chitietban"/>
+			<item value="insert"/>
+			<item value="addModal"/>
+			<item value="ddModal"/>
+			<item value="masterhead"/>
+			<item value="soluongcon"/>
+			<item value="gia"/>
+			<item value="ten"/>
+		</list>
+		<list key="replacehistory">
+			<item value="isTrangThai"/>
+			<item value="Price"/>
+			<item value="TenF"/>
+			<item value="IDF"/>
+			<item value="menu"/>
+			<item value="hoadon"/>
+			<item value="ban"/>
+			<item value="NHANVIEN"/>
+			<item value="nhanvien"/>
+			<item value="Nhn"/>
+			<item value="Jdbc"/>
+			<item value="m"/>
+			<item value="demo"/>
+			<item value="example"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="119"/>
+		<item key="DIALOG_Y_ORIGIN" value="137"/>
+		<item key="DIALOG_WIDTH" value="394"/>
+		<item key="DIALOG_HEIGHT" value="416"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

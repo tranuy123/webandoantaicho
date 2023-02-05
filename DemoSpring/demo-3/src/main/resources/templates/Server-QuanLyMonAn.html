@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+  <head>
+    <title>Quản lý món ăn</title>
+      <link href="/assets/css/Modal.css" rel="stylesheet" />
+  </head>
+
+  <body layout:fragment="content">
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Quản lý món ăn</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/trang-chu}">Trang chủ</a></li>
+            
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <section class="section">
+       <div
+                  style="margin-bottom: 20px; display: flex; justify-content: space-between"
+          >
+              <a  class="btn btn-success" href="#addModal">
+                  <span>Thêm món ăn</span></a
+              >
+              <div >
+                  
+              </div>
+          </div>
+        <div id="listmenu" class="product" style="display: flex; flex-wrap: wrap">
+        
+          <ul th:each="menu : ${menus}">
+            <div class="card">
+              <div
+                class="profile-card pt-4 d-flex flex-column"
+                style="padding: 0 10px 0 10px">
+                <img style="width: 300px; height: 250px"
+                  th:src="@{${'/quan-ly/anh-mon-an/'+menu.getIDF()}}"/>
+                  <p id="idmenu" style="display: none" th:text="${menu.getIDF()}"></p>
+                <h5 style="margin-top: 10px; width: 300px; height: 45px;" th:text="${menu.getTenF()}"></h5>
+                <h6 th:text="'Giá: '+${menu.getPrice()}"></h6>
+                <div style="display: flex; justify-content: space-between">
+               <h6 th:if="${menu.isTrangThai()==true}">Còn món</h6>
+                <label th:unless="${menu.isTrangThai()==true}" for="" style="color : red" > hết món</label>
+                </div>
+                <div class="social-links" style="display: flex; justify-content: space-between">
+                  <div>
+                    <a  class="chinhsua" href="#editModal" th:data-parameter1 ="${menu.getIDF()}" onclick="show_man_hinh_on_modal(this.getAttribute('data-parameter1'))"><i class="bi bi-pencil-square"></i
+
+                    ></a>
+                     <a class="Xoa" th:data-parameter1 ="${menu.getIDF()}" onclick="xoa_mon_an(this.getAttribute('data-parameter1'))"><i class="bi bi-trash"></i></a>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </ul>
+     
+        </div>
+           
+      <div id="addModal" class="modal" role="dialog">
+          <a href="#" class="fade" style="position: fixed;"></a>
+          <div class="modal-dialog1" style="width: 680px; margin-left: auto; margin-right: auto;" >
+            
+              <div class="modal-content">
+               
+                  <form th:action="@{/quan-ly/them-mon-an}" method="post" enctype="multipart/form-data">
+                      <div class="modal-header">						
+                          <h4 class="modal-title">Thêm sản phẩm</h4>
+                          <a class="close" data-dismiss="modal" href="#">&times;</a>
+                      </div>
+                      <div class="modal-body">	
+                        <div class="form-group" style="display: flex; ">
+                          <div>
+                          <label style="margin-bottom: 70px;">Hình ảnh</label>
+                          <input name="hinhAnhbit" class="form-control" type="file" id="Fileimage" onchange="chooseFile(this)" accept="image/gif image/png image/jpeg">
+                          </div>
+                          <div style="max-width: 300px; max-height:250px; margin-left: 10px;">
+                              <img src="" alt="" width="300px" height="250px" id="image">
+                          </div>
+                      </div>
+                          <div class="form-group">
+                              <label>Mã món ăn</label>
+                              <input name="IDF" type="text" class="form-control" required>
+                              <div id="idf" style="display: none" class="message">
+                          </div>
+                          <div class="form-group">
+                              <label>Tên Món ăn</label>
+                              <input name="TenF" type="text" class="form-control" required>
+                          </div>
+                          
+                          <div class="form-group">
+                              <label>Giá</label>
+                              <input name="price" class="form-control" required></input>
+                          </div>
+                           
+                           <div class="form-group">
+                            <label>Loại món ăn</label>
+                           
+                            <select name="IDloaiF" class="form-select" aria-label="Default select example" required>
+                            	<option th:value="MONCHINH">Món chính</option>
+                            	<option th:value="MONPHU">Món phụ</option>
+                            	<option th:value="TRANGMIENG">Tráng miệng</option>
+                            	<option th:value="NUOC">Nước</option>
+                            	
+                            </select>
+                        </div>
+                         
+                      </div>
+                                 
+                      </div>
+                      <div class="modal-footer">
+                  
+                          <input type="submit" class="btn btn-success" value="Thêm">
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <div id="editModal" class="modal" role="dialog">
+        <a href="#" class="fade" style="position: fixed;"></a>
+        <div class="modal-dialog1" style="width: 680px; margin-left: auto; margin-right: auto;" >
+          
+            <div id="modalSua" class="modal-content">
+             
+                <form th:action="@{/quan-ly/sua-mon-an}" method="post" enctype="multipart/form-data">
+                    <div class="modal-header">						
+                        <h4 class="modal-title">Chỉnh sửa thông tin</h4>
+                        <a class="close" data-dismiss="modal" href="#">&times;</a>
+                    </div>
+                    <div class="modal-body">	
+                      <div class="form-group" style="display: flex; ">
+                        <div>
+                        <label style="margin-bottom: 70px;">Hình ảnh</label>
+                        <input name="hinhAnhbit" class="form-control" type="file" id="Fileimage" onchange="chooseFile1(this)" accept="image/gif image/png image/jpeg">
+                        </div>
+                          <div id="divImage" style="max-width: 300px; max-height:250px; margin-left: 10px;">
+                              <img th:src="@{${'/quan-ly/anh-mon-an/'+menu.getIDF()}}" alt="" width="300px" height="250px">
+                          </div>
+                        <div id="divImage1" style="max-width: 300px; max-height:250px; margin-left: 10px; display: none">
+                            <img src="" alt="" width="300px" height="250px" id="image1">
+                        </div>
+                      </div>			
+                        <div class="form-group">
+                            <label>Mã món ăn</label>
+                            <input name="IDF"  th:value="${menu.getIDF()}" type="text" class="form-control" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Tên món ăn</label>
+                            <input name="TenF" th:value="${menu.getTenF()} " type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Giá</label>
+                            <input name="price"  th:value="${menu.getPrice()}" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Loại món ăn</label>
+                           
+                            <select name="IDloaiF" class="form-select" aria-label="Default select example" th:value="${menu.getIDloaiF()}">
+                            	<option th:value="MONCHINH">Món chính</option>
+                            	<option th:value="MONPHU">Món phụ</option>
+                            	<option th:value="TRANGMIENG">Tráng miệng</option>
+                            	<option th:value="NUOC">Nước</option>
+                            	
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Trạng thái </label>
+                            <select name="TrangThai" class="form-select" aria-label="Default select example" th:value="${menu.isTrangThai()}">
+                            	<option value="true">Còn</option>
+                            	<option value="false">Hết món</option>
+                            </select>
+                        </div>  
+                        
+                       
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Lưu">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+      </section>
+    </main>
+  </body>
+</html>

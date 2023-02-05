@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+  <head>
+   
+  </head>
+
+  <body layout:fragment="content">
+   
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>chi tiết gọi món</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/trang-chu}">Trang chủ</a></li>
+           
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <section class="section">
+        <div class="row">
+          <div class="col-lg-6" style="width: 100%">
+            <div class="card">
+           <form onsubmit="return validateForm()" name="myForm" th:action="@{/khach-hang/confirm}" method="post" th:object="${hoadon}" class="card-body">
+            
+              <div class="card-body">
+                <div class="row mb-3" style="display: none">
+                <label for="inputDate" class="col-sm-2 col-form-label" style="padding-top: 0">Mã hóa đơn</label>
+                <div class="col-sm-10">
+                  <input th:value="${session.admin.getMaBan()}" name="MaHD" id="mahd" class="form-control" type="text">
+                  <script>
+								function makeid(l)
+								{
+								var text = "";
+								var char_list = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+								for(var i=0; i < l; i++ )
+								{  
+								text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+								}
+								return text;
+								}
+								document.getElementById("mahd").value=text;
+								
+								</script>
+                  <div class="message" style="display: none">
+                  
+                  </div>
+                </div>
+              </div>
+                <div class="row mb-3" style="display: none">
+                <label for="inputPassword" class="col-sm-2 col-form-label" style="padding-top: 0">Bàn oder</label>
+                <div class="col-sm-10">
+                  <label th:text="${session.admin.getTenBan()}" ></label>
+                </div>                
+              </div>
+              <div class="row mb-3">
+                <label for="inputDate" class="col-sm-2 col-form-label" style="padding-top: 0">Ngày</label>
+                <div class="col-sm-10">
+                  <input name="NgayXuatHD" id="inputDate" type="date" style="border: 0;outline: 0;" readonly>
+                  <script>
+                    document.getElementById('inputDate').valueAsDate = new Date();
+                  </script>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label" style="padding-top: 0">Số món : </label>
+                <div class="col-sm-10">
+                  <label for="" th:text="${hoadon.getSoLoaiFood()}"></label>
+                  <input id="SoLoai" style="display: none" th:value="${hoadon.getSoLoaiFood()}" name="SoLoaiFood">
+                </div>
+              </div>
+                <!-- General Form Elements -->
+                <table
+                  class="table table-striped table-hover"
+                  style="max-width: 1200px"
+                >
+                  <thead>
+                    <tr>
+                      <th>Mã hàng hóa</th>
+                      <th>Tên Hàng Hóa</th>
+                      <th>Số lượng</th>
+                      <th>Đơn giá</th>
+                      <th>Tổng</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="hh,stat : ${hoadon.getChitiethoadon()}">
+                  <td style="vertical-align: middle">
+                    <input th:name="|chitiethoadon[${stat.index}].idf|"
+                           th:value="${hh.getMenu().getIDF()}"
+                           readonly
+                           style="border: 0;outline: 0;background-color: transparent"
+                           type="text">
+                  </td>
+                      <td th:text="${hh.getMenu().getTenF()}"style="vertical-align: middle">
+                        <input
+                          style="width: 100px"
+                          type="text"
+                          value=""
+                          disabled
+                        />
+                      </td>
+
+                      <td style="vertical-align: middle">
+                      <input th:data-id="${stat.index}"
+                             onchange="thanhTien1(this.getAttribute('data-id'))"
+                             th:id="${stat.index}"
+                             th:name="|chitiethoadon[${stat.index}].soLuong|"
+                             type="number" value="1" min="1"
+                             style="width: 70px" />
+                   
+                	  </td>
+                      <td th:id="${'gia'+stat.index}" style="vertical-align: middle" th:text="${hh.getMenu().getPrice()}">
+                  </td>
+                     <td style="vertical-align: middle">
+                    <input th:value="${hh.getMenu().getPrice()}"
+                           th:id="${'tong'+stat.index}"
+                           class="tongtienTungLoai"
+                           th:name="|chitiethoadon[${stat.index}].thanhTien|"
+                           readonly style="border: 0;outline: 0;background-color: transparent"
+                           type="text">
+                  </td>
+                  
+                      
+                    </tr>
+                  </tbody>
+                  <tr>
+                  <th>Tổng</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th>
+                    <input id="tongPhieu"
+                           value="123123"
+                           readonly
+                           style="border: 0;outline: 0;background-color: transparent"
+                           type="text"
+                           name="TongTien">
+                  </th>
+                </table>
+                <div class="row mb-3">
+                  <div
+                    class="col-sm-10"
+                    style="display: flex; justify-content: center"
+                  >
+                    <button type="submit" class="btn btn-primary">
+                      Xác nhận
+                    </button>
+                  </div>
+                </div>
+
+                <!-- End General Form Elements -->
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <script>
+      function validateForm() {
+        var x = document.forms["myForm"]["maPhieu1"].value;
+        if (x === "") {
+          alert("Mã phiếu không được để trống!");
+          return false;
+        }
+      }
+      var tong=0;
+      var sl = document.getElementById('SoLoai').value;
+      for (var i=0;i<sl;i++){
+        tong = tong + parseFloat(document.getElementById('tong'+i).value);
+      }
+      document.getElementById('tongPhieu').value = tong;
+      function thanhTien1(id){
+        var a = document.getElementById(id).value;
+        var b = document.getElementById('gia'+id).textContent;
+        document.getElementById('tong'+id).value = a*b;
+        var tong=0;
+        var sl = document.getElementById('SoLoai').value;
+        for (var i=0;i<sl;i++){
+          tong = tong + parseFloat(document.getElementById('tong'+i).value);
+        }
+        document.getElementById('tongPhieu').value = tong;
+      }
+    </script>
+    <script>
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+ 
+    document.getElementById("mahd").value = dateTime;
+ </script>  
+    
+    </main>
+    <!-- End #main -->
+
+   
+
+    <!-- Template Main JS File -->
+  </body>
+</html>

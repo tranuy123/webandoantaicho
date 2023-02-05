@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+
+<head>
+  <title>Icons / Remix - NiceAdmin Bootstrap Template</title>
+</head>
+<body layout:fragment="content">
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Thêm tài khoản nhân viên</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+          <li class="breadcrumb-item"><a href="QuanlyNV.html">Quản lý nhân viên</a></li>
+          <li class="breadcrumb-item active">Thêm nhân viên</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="card">
+        <div class="card-body">
+          <div class="addemployee">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form th:action="@{/quan-ly/them-tk}" th:object="${nhanvien}" method="post">
+
+                        <div class="modal-body">					
+                            <div class="form-group">
+                                <label>Mã nhân viên</label>
+                                <input name="ID" type="text" class="form-control" required id="thukhoID">
+                                <div class="message" style="display: none">
+								</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Tài khoản</label>
+                                <input name="taiKhoan.userName" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input name="matKhau" type="password" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Chức vụ</label>
+                                <input name="taiKhoan.role.MaRL" class="form-control" required>
+                            </div>
+                             <div class="form-group">
+                                <label>Ngày vào làm</label>
+                                <input name="ngayBatDauLam" type="date" class="form-control" required>
+                            </div>
+                             <div class="form-group">
+                                <label>Số tiền theo giờ làm</label>
+                                <input name="soTienTrenGio" type="text" class="form-control" required>
+                            </div>
+                                                
+                        </div>
+                        <div class="modal-footer" style="margin-top: 10px;">
+                            <input type="submit" class="btn btn-success" value="Thêm">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+       
+    </section>
+
+  </main><!-- End #main -->
+
+</body>
+
+</html>

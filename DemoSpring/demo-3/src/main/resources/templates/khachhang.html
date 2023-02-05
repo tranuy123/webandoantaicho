@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+  <head>
+    
+  </head>
+
+  <body layout:fragment="content">
+   
+    
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Menu</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/trang-chu}">Trang chủ</a></li>
+            
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <section class="section">
+        <div
+          class="search-bar"
+          style="
+            display: flex;
+            margin-bottom: 10px;
+            margin-right: 320px;
+            justify-content: flex-end;
+          "
+        >
+          <form
+            class="search-form d-flex align-items-center"
+            method="POST"
+            action="#"
+          >
+            <input
+              type="text"
+              name="query"
+              placeholder="Tìm kiếm"
+              title="Enter search keyword"
+              style="
+                border: 0;
+                font-size: 14px;
+                color: #012970;
+                border: 1px solid rgba(1, 41, 112, 0.2);
+                padding: 7px 38px 7px 8px;
+                border-radius: 3px;
+                transition: 0.3s;
+              "
+            />
+            <button
+              type="submit"
+              title="Search"
+              style="
+                border: 0;
+                padding: 0;
+                margin-left: -30px;
+                background: none;
+              "
+            >
+              <i class="bi bi-search"></i>
+            </button>
+          </form>
+        </div>
+        <div
+          class="product"
+          style="display: flex; flex-wrap: wrap; margin-right: 300px"
+        >
+          <ul th:each="menu : ${menus}">
+            <div class="card">
+              <div
+                class="profile-card pt-4 d-flex flex-column"
+                style="padding: 0 10px 10px 10px"
+              >
+                 <img
+                  style="width: 300px; height: 250px"
+                  th:src="@{${'/khach-hang/anh-mon-an/'+menu.getIDF()}}"
+                />
+                <h5 style="margin-top: 10px; width: 300px; height: 45px" th:text="${menu.getTenF()}">
+                 
+                </h5>
+
+                <h6 th:text="'Gía: ' + ${menu.getPrice()} + ' VNĐ'"></h6>
+                <div style="display: flex; justify-content: space-between">
+                  <h6 th:if="${menu.isTrangThai()==true}">Còn món</h6>
+                <label th:unless="${menu.isTrangThai()==true}" for="" style="color : red" > hết món</label>
+                </div>
+				<button th:if="${menu.isTrangThai()==true}"  th:data-id="${menu.getIDF()}" onclick="themfoodvaoSession(this.getAttribute('data-id'));this.disabled=true;" class="btn btn-success">Thêm</button>
+                
+              <button th:unless="${menu.isTrangThai()==true}" style="display : none" th:data-id="${menu.getIDF()}" onclick="themfoodvaoSession(this.getAttribute('data-id'));this.disabled=true;" class="btn btn-success">Thêm</button>
+              </div>
+            </div>
+          </ul>
+        </div>
+      </section>
+      <div
+        style="
+          position: fixed;
+          top: 60px;
+          right: 0;
+          bottom: 0;
+          width: 300px;
+          z-index: 996;
+          transition: all 0.3s;
+          padding: 20px;
+          overflow-y: auto;
+          scrollbar-width: thin;
+          scrollbar-color: #aab7cf transparent;
+          box-shadow: 0px 0px 20px rgb(1 41 112 / 10%);
+          background-color: #fff;
+        "
+      >
+        <div>
+          <div class="dropdown">
+            
+            
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column">
+         
+          <div><h5><center>Các món đã chọn</center></h5></div>
+          <div id="listfood">
+      <div th:each="f : ${session.listfood}" style="display: flex; flex-direction: column;border-bottom: 1px solid;">
+        <label style="margin-top: 6px" for="" th:text="${f.getTenF()}" th:value="${f.getIDF()}"></label>    
+        <i  th:data-id="${f.getIDF}" onclick="xoaRow(this.getAttribute('data-id'))" class="bi bi-x-lg" style="cursor: pointer"></i> 
+      </div>
+      
+      </div>
+         
+        </div>
+        
+        <div style="bottom: 0; display: flex; justify-content: center;margin-top:20px">
+          <a th:if="${session.hoadon == null}" href="/khach-hang/xac-nhan-chi-tiet" class="btn btn-success"> <span>Tiếp tục</span></a>
+        </div>
+        <div style="bottom: 0; display: flex; justify-content: center;margin-top:20px">
+          <a th:unless="${session.hoadon == null}"  href="/khach-hang/xac-nhan-chi-tiet" class="btn btn-success"> <span>Tiếp tục</span></a>
+        </div>
+        <div style="bottom: 0; display: flex; justify-content: center;margin-top:20px">
+          <a th:if="${session.hoadon != null}" th:href="@{${'/khach-hang/xem-hoa-don/'+session.admin.getMaBan()}}" class="btn btn-success"> <span>Hóa đơn của bạn</span></a>
+          <a th:unless="${session.hoadon != null}" style="display: none " href="/khach-hang/xac-nhan-chi-tiet" class="btn btn-success"> <span>Hóa đơn của bạn</span></a>
+        </div>
+      </div>
+    </main>
+    <!-- End #main -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.min.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.min.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

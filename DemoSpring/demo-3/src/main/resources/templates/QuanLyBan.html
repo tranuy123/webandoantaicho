@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+  <head>
+          <link href="/assets/css/Modal.css" rel="stylesheet" />
+    
+  </head>
+
+  <body layout:fragment="content">
+   
+    
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Quản lý bàn</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/trang-chu}">Trang chủ</a></li>
+            
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+     <section class="section">
+        <div
+          style="margin-bottom: 20px; display: flex; justify-content: flex-end"
+        >
+          <a href="#addModal" class="btn btn-success">
+            <span>Thêm Bàn</span></a
+          >
+        </div>
+        <div class="product" style="display: flex; flex-wrap: wrap">
+        
+          <ul th:each="ban : ${bans}">
+           <div class="card">
+              <div
+                class="profile-card pt-4 d-flex flex-column"
+                style="padding: 0 10px 0 10px"
+              >
+               <div th:if="${ban.isTrangThai()==true}" style="width: 300px;height:250px;background-color:#8ab4f8ff;"></div>
+               <div th:unless="${ban.isTrangThai()==true}" style="width: 300px;height:250px;background-color: #30598c;"></div>
+                <h5 style="margin-top: 10px" th:text = "${ban.getTaiKhoan().getUserName()}"></h5>
+                
+                <h5 style="margin-top: 10px" th:text = "${ban.getTaiKhoan().getPassword()}">aaaa</h5>
+            
+               
+                
+                <div
+                  class="social-links"
+                  style="display: flex; justify-content: space-between"
+                >
+                 
+                  
+                </div>
+              </div>
+            </div>
+          </ul>
+        </div>
+       
+        <div id="addModal" class="modal">
+          <a href="#" class="fade" style="position: fixed;"></a>
+          <div class="modal-dialog1" style="width: 680px; margin-left: auto; margin-right: auto;" >
+            
+              <div class="modal-content">
+               
+                  <form th:action="@{/quan-ly/them-ban}" method="post" enctype="multipart/form-data">
+                      <div class="modal-header">						
+                          <h4 class="modal-title">Thêm bàn</h4>
+                          <a class="close" data-dismiss="modal" href="#">&times;</a>
+                      </div>
+                      <div class="modal-body">	
+                        
+                          <div class="form-group">
+                              <label>Mã bàn</label>
+                              <input name="MaBan" type="text" class="form-control" required>
+                              <div id="idf" style="display: none" class="message">
+                          </div>
+                          <div class="form-group">
+                              <label>UserName</label>
+                              <input name="taiKhoan.userName" type="text" class="form-control" required>
+                              <input name="TrangThai" value="true" class="form-control" style="display: none" required></input>
+                              <input name="taiKhoan.role.MaRL" value="KHACHHANG"class="form-control" style="display: none" required></input>
+                          </div>
+                          <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input name="matKhau" type="password" class="form-control" required>
+                            </div>
+                         
+                         
+                      </div>
+                      <div class="modal-footer">
+                  
+                          <input type="submit" class="btn btn-success" value="Thêm">
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <div id="editModal" class="modal">
+        <a href="#" class="fade" style="position: fixed;"></a>
+        <div class="modal-dialog1" style="width: 680px; margin-left: auto; margin-right: auto;" >
+          
+            <div id="modalSua" class="modal-content">
+             
+                <form  th:action="@{/quan-ly/sua-mon-an}" method="post" enctype="multipart/form-data">
+                    <div class="modal-header">						
+                        <h4 class="modal-title">Chỉnh sửa thông tin</h4>
+                        <a class="close" data-dismiss="modal" href="#">&times;</a>
+                    </div>
+                    <div class="modal-body">	
+                     <div class="form-group" style="display: flex; ">
+                        <div>
+                        <label style="margin-bottom: 70px;">Hình ảnh</label>
+                        <input name="hinhAnhbit" class="form-control" type="file" id="Fileimage" onchange="chooseFile1(this)" accept="image/gif image/png image/jpeg">
+                        </div>
+                          <div id="divImage" style="max-width: 300px; max-height:250px; margin-left: 10px;">
+                              <img th:src="@{${'/quan-ly/anh-mon-an/'+ban.getIDF()}}" alt="" width="300px" height="250px">
+                          </div>
+                        <div id="divImage1" style="max-width: 300px; max-height:250px; margin-left: 10px; display: none">
+                            <img src="" alt="" width="300px" height="250px" id="image1">
+                        </div>
+                      </div>	
+                        <div class="form-group">
+                            <label>Mã món ăn</label>
+                            <input name="IDF"  th:text="${ban.getIDF()}" type="text" class="form-control" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Tên món ăn</label>
+                            <input name="TenF" th:text="${ban.getTenF()} " type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Giá</label>
+                            <input name="price"  th:text="${ban.getPrice()}" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Loại món ăn</label>
+                           
+                            <select name="IDloaiF" th:text="${ban.getIDloaiF()}">
+                            	<option>Món chính</option>
+                            	<option>Món tráng miệng</option>
+                            	<option>Nước</option>
+                            	
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Trạng thái </label>
+                            <select name="TrangThai" th:text="${ban.isTrangThai()}">
+                            	<option value="true">Còn</option>
+                            	<option value="fales">Hết món</option>
+                            </select>
+                        </div>  
+                        
+                                 
+                    </div>
+                    <div class="modal-footer">
+                
+                        <input type="submit" class="btn btn-success" value="Lưu">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+      </section>
+     
+    </main>
+    <!-- End #main -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.min.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.min.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
+  

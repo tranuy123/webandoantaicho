@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  </head>
+
+  <body layout:fragment="content">
+   
+    
+
+    <main id="main" class="main">
+    <div style="position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 35rem;
+    padding: 15rem 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)), url(/assets/img/bundaudacbiet.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    border-bottom: 1px solid #281926;">
+    <div class="container d-flex h-100 align-items-center">
+    	<div class="mx-auto text-center">
+    	<h1 style="font-size: 4rem;
+   			 line-height: 7rem;font: 64px Pacifico, cursive;color:#fff;">Cảm ơn Bạn đã chọn bún đậu 18</h1>
+   			 <h2 class="text-a-p-light" style="color:#ff7235"> Nếu bạn hài lòng - hãy nói với mọi người</h2>
+   			    			 <h2 class="text-a-p-light" style="color:#ff7235" > Nếu bạn không hài lòng - nói với chúng tôi nhé</h2>
+   			    			
+   		 <div style="bottom: 0; display: flex; justify-content: center;margin-top:33px;margin-right:139px;">
+          <a th:if="${session.admin.getTaiKhoan().getRole().getMaRL()=='KHACHHANG'}" th:href="@{khach-hang/menu}" class="btn btn-success" style="background-color:#ff7235"> <span style="color:#000000ff">Order Ngay</span></a>
+        </div>	    			  
+   			 
+    	</div>
+    </div>
+    
+    </div>
+    
+     
+       
+    </main>
+   
+    <!-- End #main -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.min.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.min.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

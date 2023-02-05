@@ -1,0 +1,43 @@
+package com.example.demo.model;
+
+public class YeuCau {
+ private int MaOD ; 
+ private String UserName ; 
+ private boolean TrangThai ;
+ 
+ 
+public YeuCau() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+public YeuCau(int maOD, String userName, boolean trangThai) {
+	super();
+	MaOD = maOD;
+	UserName = userName;
+	TrangThai = trangThai;
+}
+public int getMaOD() {
+	return MaOD;
+}
+public void setMaOD(int maOD) {
+	MaOD = maOD;
+}
+public String getUserName() {
+	return UserName;
+}
+public void setUserName(String userName) {
+	UserName = userName;
+}
+public boolean isTrangThai() {
+	return TrangThai;
+}
+public void setTrangThai(boolean trangThai) {
+	TrangThai = trangThai;
+}
+@Override
+public String toString() {
+	return "YeuCau [MaOD=" + MaOD + ", UserName=" + UserName + ", TrangThai=" + TrangThai + "]";
+} 
+ 
+
+}

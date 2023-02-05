@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+  <head>
+    
+  </head>
+
+  <body layout:fragment="content">
+    
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Chi tiết sản phẩm</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+            <li class="breadcrumb-item active">hàng hóa</li>
+            <li class="breadcrumb-item active">
+              <a href="Chuot.html">Chuột</a>
+            </li>
+            <li class="breadcrumb-item active">chi tiết sản phẩm</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <section class="section profile">
+        <div class="row">
+          <div class="col-xl-4">
+            <div class="card">
+              <div class="card-body pt-4 d-flex flex-column align-items-center">
+                <img
+                  style="width: 300px; height: 250px"
+                  src="assets/img/product-5.jpg"
+                />
+                <h2 th:text="${menu.TenF}">Tai nghe hyperX</h2>
+              </div>
+            </div>
+          </div>
+		<form th:action="@{/quan-ly/sua-mon-an}" method ="post">
+          <div class="col-xl-8">
+            <div class="card">
+              <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+                <ul class="nav nav-tabs nav-tabs-bordered">
+                  <li class="nav-item">
+                    <button
+                      class="nav-link active"
+                      data-bs-toggle="tab"
+                      data-bs-target="#profile-overview"
+                    >
+                      Chi tiết sản phẩm
+                    </button>
+                  </li>
+                </ul>
+                <div class="tab-content pt-2">
+                  <div
+                    class="tab-pane fade show active profile-overview"
+                    id="profile-overview"
+                  >
+                    <h5 class="card-title">Cấu hình chi tiết</h5>
+                     <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Giá</div>
+                      <input name="IDF" th:text="${menu.getIDF()}">
+                    </div>
+                    
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Giá</div>
+                      <input name="Price" th:text="${menu.getPrice()}">
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Hãng sản xuất</div>
+                      <div class="col-lg-9 col-md-8">hyper</div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Model</div>
+                      <div class="col-lg-9 col-md-8">8gb ĐR4</div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Số nút</div>
+                      <div class="col-lg-9 col-md-8">066257882258</div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Led</div>
+                      <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Màu sắc</div>
+                      <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Cảm biến</div>
+                      <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Trọng lượng</div>
+                      <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Trọng lượng</div>
+                      <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="tab-pane fade profile-edit pt-3"
+                    id="profile-edit"
+                  ></div>
+                </div>
+                <!-- End Bordered Tabs -->
+              </div>
+            </div>
+          </div>
+          <button type="submit">Sửa</button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.min.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.min.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

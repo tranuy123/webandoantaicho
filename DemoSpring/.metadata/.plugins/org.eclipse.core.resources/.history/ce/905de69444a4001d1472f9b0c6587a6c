@@ -1,0 +1,23 @@
+package com.example.demo.model.mapper;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+
+import com.example.demo.model.Ban;
+import com.example.demo.model.YeuCau;
+
+public class YeuCauMapper implements RowMapper<YeuCau> {
+	@Override 
+	public YeuCau mapRow(ResultSet rs, int rowNum) throws SQLException {
+		YeuCau y = new YeuCau();
+		y.setMaOD(rs.getInt("MaOD"));
+		y.setUserName(rs.getString("UserName"));
+		y.setTrangThai(rs.getBoolean("TrangThai"));
+		
+		return y ;
+	
+	}
+	
+
+}

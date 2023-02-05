@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+  <head>
+          <link href="/assets/css/Modal.css" rel="stylesheet" />
+    
+  </head>
+
+  <body layout:fragment="content">
+   
+    
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Thông tin bàn</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/trang-chu}">Trang chủ</a></li>
+            
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+     <section class="section">
+         <div
+          class="product"
+          style="display: flex; flex-wrap: wrap;"
+        >
+        
+          <ul th:each="ban : ${bans}">
+            <div class="card">
+              <div
+                class="profile-card pt-4 d-flex flex-column"
+                style="padding: 0 10px 10px 10px"
+              >
+                <div th:if="${ban.isTrangThai()==true}" style="width: 300px;height:250px;background-color:#8ab4f8ff;"></div>
+               <div th:unless="${ban.isTrangThai()==true}" style="width: 300px;height:250px;background-color: #30598c;"></div>
+               
+                <center><h5 style="margin-top: 10px; width: 300px; height: 45px;" th:text = "${ban.getTaiKhoan().getUserName()}">
+                 
+                </h5></center>           
+                <div style="bottom: 0; display: flex; justify-content: center;margin-top:-31px;margin-right:-165px;">
+          <a  th:href="@{${'/Quan-Ly-Ban/xem-hoa-don/'+ban.getTaiKhoan().getUserName()}}" class="btn btn-success"> <span>Xem</span></a>
+        </div>
+        <!--   <div
+                  style="margin-bottom: 20px; display: flex; justify-content: space-between"
+          >
+              <a   class="chinhsua" href="#editModal" th:data-parameter1 ="ban1" onclick="show_man_hinh_on_modal(this.getAttribute('data-parameter1'))">
+                  <span>Thêm món ăn</span></a
+              >
+              <div >
+                  
+              </div>
+          </div>-->
+        <form th:action="@{/Quan-Ly-Ban/update-trangthai-ban}" method="post">
+        <input style="display : none" name = "taiKhoan.userName" th:value="${ban.getTaiKhoan().getUserName()}">
+        <input style="display : none" name = "TrangThai" value="true">  
+         <div style="bottom: 0; display: flex; justify-content: center;margin-top:-31px;margin-right:140px;">      
+        <button onclick="confirm('Bạn có xoá hãng sản xuất này?')" th:if="${ban.isTrangThai()==false}" type="submit" style="background-color: #198754;color : #fff;padding:0.5rem 1rem;border:none;border-radius:0.25rem;margin-top:-8px"> Reset</button>
+        </div>
+          </form>
+              </div>
+            </div>
+          </ul>
+          
+        </div>
+       <!-- <div id="editModal" class="modal" role="dialog">
+        <a href="#" class="fade" style="position: fixed;"></a>
+        <div class="modal-dialog1" style="width: 680px; margin-left: auto; margin-right: auto;" >
+          
+            <div id="modalSua" class="modal-content">
+             
+                <form th:action="@{/Quan-Ly-Ban/update-trangthai-ban}" method="post" enctype="multipart/form-data">
+                    <div class="modal-header">						
+                        <h4 class="modal-title">Chỉnh sửa thông tin</h4>
+                        <a class="close" data-dismiss="modal" href="#">&times;</a>
+                    </div>
+                    <div class="modal-body">	
+                      			
+                        <div class="form-group">
+                            <label>Mã bàn</label>
+                            <input name = "taiKhoan.userName" th:value="${bans.getTaiKhoan().getUserName()}" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tên món ăn</label>
+                            <input  name = "TrangThai" value="true" type="text" class="form-control" required>
+                        </div>       
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Lưu">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>-->
+      </section>
+     
+    </main>
+    <!-- End #main -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.min.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.min.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+   
+</script>
+  </body>
+</html>
+
